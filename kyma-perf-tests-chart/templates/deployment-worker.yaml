@@ -5,7 +5,7 @@ metadata:
   labels:
     app: locust-worker
   name: locust-worker
-  namespace: kyma-perf-tests
+  namespace: {{ .Values.namespace }}
 spec:
   replicas: 4
   selector:

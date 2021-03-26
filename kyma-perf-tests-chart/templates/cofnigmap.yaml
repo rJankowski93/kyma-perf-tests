@@ -8,7 +8,7 @@ data:
 
 
         def on_start(self):
-            time.sleep(20)
+            time.sleep(5)
 
         @task
         def hello_world(self):
@@ -18,4 +18,4 @@ kind: ConfigMap
 metadata:
   creationTimestamp: null
   name: locustfile-config
-  namespace: kyma-perf-tests
+  namespace: {{ .Values.namespace }}

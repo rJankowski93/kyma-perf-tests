@@ -80,8 +80,9 @@ affinity: {}
 
 users: 10
 hatchRate: 10
-host: http://nginx.kyma-perf-tests.svc.cluster.local
+host:
 runTime: 5m20s
 locustfile: /mnt/locust/locustfile.py
 testCaseNumber: 1
 clusterDomain: default
+namespace: kyma-perf-tests

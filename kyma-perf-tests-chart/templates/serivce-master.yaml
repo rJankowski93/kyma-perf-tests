@@ -5,7 +5,7 @@ metadata:
   labels:
     job-name: locust
   name: locust
-  namespace: kyma-perf-tests
+  namespace: {{ .Values.namespace }}
 spec:
   ports:
   - port: 5557

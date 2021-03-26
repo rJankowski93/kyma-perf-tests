@@ -2,10 +2,10 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: locust
-  namespace: kyma-perf-tests
-#  annotations:
-#    "helm.sh/hook": pre-install
-#    "helm.sh/hook-weight": "0"
+  namespace: {{ .Values.namespace }}
+  annotations:
+    "helm.sh/hook": post-install
+    "helm.sh/hook-weight": "0"
 spec:
   template:
     metadata:
@@ -33,10 +33,10 @@ spec:
       {{ if .Values.host }}
           - {{ .Values.host }}
       {{ else }}
-        {{ if .Values.testCaseNumber }}
-          - {{ .Values.host }}
+        {{ if eq .Values.testCaseNumber 1}}
+          - http://nginx.{{ .Values.namespace }}.svc.cluster.local
         {{ else }}
-          - apiRule.{{ .Values.clusterDomain }}
+          - http://apiRule.{{ .Values.clusterDomain }}
         {{ end }}
       {{ end }}
         ports:
