@@ -1,5 +1,5 @@
-apiVersion: batch/v1
-kind: Job
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: locust
   namespace: {{ .Values.namespace }}
@@ -7,9 +7,15 @@ metadata:
     "helm.sh/hook": post-install
     "helm.sh/hook-weight": "0"
 spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: locust
   template:
     metadata:
       name: locust
+      labels:
+        app: locust
     spec:
       containers:
       - name: locust
@@ -46,9 +52,7 @@ spec:
           - name: loc-master-p1
             containerPort: 5557
             protocol: TCP
-      restartPolicy: Never
       volumes:
         - name: locustfile
           configMap:
             name: locustfile-config
-  backoffLimit: 4

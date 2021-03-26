@@ -1,7 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  creationTimestamp: null
   labels:
     app: locust-worker
   name: locust-worker
@@ -11,10 +10,8 @@ spec:
   selector:
     matchLabels:
       app: locust-worker
-  strategy: {}
   template:
     metadata:
-      creationTimestamp: null
       labels:
         app: locust-worker
     spec:
