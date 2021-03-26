@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: locust
+  namespace: kyma-perf-tests
+#  annotations:
+#    "helm.sh/hook": pre-install
+#    "helm.sh/hook-weight": "0"
+spec:
+  template:
+    metadata:
+      name: locust
+    spec:
+      containers:
+      - name: locust
+        image: locustio/locust
+        volumeMounts:
+          - name: locustfile
+            mountPath: /mnt/locust
+        args:
+          - --locustfile
+          - {{ .Values.locustfile }}
+          - --master
+          - --users
+          - "{{ .Values.users }}"
+          - --spawn-rate
+          - "{{ .Values.hatchRate }}"
+          - --headless
+          - --run-time
+          - {{ .Values.runTime }}
+
+          - --host
+      {{ if .Values.host }}
+          - {{ .Values.host }}
+      {{ else }}
+        {{ if .Values.testCaseNumber }}
+          - {{ .Values.host }}
+        {{ else }}
+          - apiRule.{{ .Values.clusterDomain }}
+        {{ end }}
+      {{ end }}
+        ports:
+          - name: loc-master-web
+            containerPort: 8089
+            protocol: TCP
+          - name: loc-master-p1
+            containerPort: 5557
+            protocol: TCP
+      restartPolicy: Never
+      volumes:
+        - name: locustfile
+          configMap:
+            name: locustfile-config
+  backoffLimit: 4

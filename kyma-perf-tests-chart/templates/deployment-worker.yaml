@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: locust-worker
+  name: locust-worker
+  namespace: kyma-perf-tests
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: locust-worker
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: locust-worker
+    spec:
+      containers:
+      - image: locustio/locust
+        name: locust
+        volumeMounts:
+          - name: locustfile
+            mountPath: /mnt/locust
+        args:
+          - --locustfile
+          - {{ .Values.locustfile }}
+          - --worker
+          - --master-host=locust
+        resources: {}
+      volumes:
+        - name: locustfile
+          configMap:
+            name: locustfile-config
+status: {}

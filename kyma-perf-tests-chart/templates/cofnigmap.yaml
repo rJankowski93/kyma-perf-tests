@@ -1,0 +1,21 @@
+apiVersion: v1
+data:
+  locustfile.py: |+
+    import time
+    from locust import HttpUser, task, between
+
+    class QuickstartUser(HttpUser):
+
+
+        def on_start(self):
+            time.sleep(20)
+
+        @task
+        def hello_world(self):
+            self.client.get("/")
+
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: locustfile-config
+  namespace: kyma-perf-tests

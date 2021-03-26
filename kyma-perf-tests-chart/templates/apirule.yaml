@@ -1,0 +1,18 @@
+apiVersion: gateway.kyma-project.io/v1alpha1
+kind: APIRule
+metadata:
+  name: apirule-name
+  namespace: kyma-perf-tests
+spec:
+  gateway: kyma-gateway.kyma-system.svc.cluster.local
+  rules:
+    - accessStrategies:
+        - config: {}
+          handler: allow
+      methods:
+        - GET
+      path: /.*
+  service:
+    host: apirule.{{ .Values.clusterDomain }}
+    name: nginx
+    port: 80
