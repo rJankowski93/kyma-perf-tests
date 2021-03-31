@@ -4,6 +4,8 @@
 ### Internal communication (beetwen pods in cluster)
 ![Locust -> Locust Istio sidecar -> Nginx Istio sidecar -> Nginx](internal.png)
 
+<img src="internal.png" alt="Locust -> Locust Istio sidecar -> Nginx Istio sidecar -> Nginx" width="200"/>
+
 ```console
 export CLUSTER_DOMAIN=$(kubectl get cm shoot-info -n kube-system -o jsonpath='{.data.domain}')
 helm install kyma-perf-tests kyma-perf-tests-chart --set testCaseNumber=1 --set clusterDomain=$CLUSTER_DOMAIN --set namespace=perf-tests --wait
