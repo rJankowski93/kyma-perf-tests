@@ -1,6 +1,6 @@
 # Performance tests for Kyma
 
-##Instructions
+## Instructions
 1. Install Kyma on the cluster
 2. Run instruction `helm install kyma-perf-tests kyma-perf-tests-chart` with selected parameters
 
