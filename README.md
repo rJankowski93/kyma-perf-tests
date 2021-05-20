@@ -4,6 +4,18 @@
 1. Install Kyma on the cluster
 2. Run instruction `helm install kyma-perf-tests kyma-perf-tests-chart` with selected parameters
 
+## Parameters
+| Name  | Description| Default  | 
+| ------|:----------:| :-------:|
+| users    | Number of concurrent Locust users.       | 10        | 
+| hatchRate    | The rate per second in which users are spawned.       | 10       | 
+| host    | Host to load test in the following format: http://10.21.32.33 |         | 
+| runTime    |   Stop after the specified amount of time       | 5m20s        | 
+| locustfile    | Python module file to import       | /mnt/locust/locustfile.py       | 
+| testCaseNumber    | Number of test case (1->Internal communication, 2->External communication)       | 1       | 
+| clusterDomain    | Specific domain for cluster. Using in ApiRule       | default       | 
+| namespace    | Namespace where Locust will be installed        | kyma-perf-tests      | 
+
 
 ## Test cases: 
 ### Internal communication (beetwen pods in cluster)
